@@ -2,7 +2,6 @@
 
 import { Menu, Search, ShoppingCart, User, LogOut, Settings, LayoutDashboard, Shield } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
