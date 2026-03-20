@@ -1,0 +1,13 @@
+{
+  "functions": {
+    "src/app/api/webhooks/**": {
+      "maxDuration": 60
+    },
+    "src/app/api/checkout/**": {
+      "maxDuration": 30
+    },
+    "src/app/api/downloads/**": {
+      "maxDuration": 30
+    }
+  }
+}

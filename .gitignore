@@ -27,6 +27,13 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env
+
+# stripe cli
+stripe.exe
+
+# claude
+.claude/
 
 # vercel
 .vercel
