@@ -26,8 +26,9 @@ export default async function CategoryPage({ params }: { params: { slug: string 
 
   let productsWithRating: {
     id: string; name: string; slug: string; price: number; comparePrice: number | null;
-    vatRate: number; type: string; images: string[]; shortDesc: string | null;
-    category: { name: string; slug: string } | null; _count: { reviews: number };
+    vatRate: number; type: "PHYSICAL" | "DIGITAL" | "SAAS"; images: string[]; shortDesc: string | null;
+    thumbnailUrl: string | null;
+    category: { name: string; slug: string }; _count: { reviews: number };
     averageRating: number | undefined;
   }[] = [];
 
@@ -47,7 +48,7 @@ export default async function CategoryPage({ params }: { params: { slug: string 
       take: 24,
     });
 
-    productsWithRating = await Promise.all(
+    const mapped = await Promise.all(
       products.map(async (p) => {
         const agg = await prisma.review.aggregate({
           where: { productId: p.id, approved: true },
@@ -58,10 +59,12 @@ export default async function CategoryPage({ params }: { params: { slug: string 
           price: Number(p.price),
           comparePrice: p.comparePrice ? Number(p.comparePrice) : null,
           vatRate: Number(p.vatRate),
+          type: p.type as "PHYSICAL" | "DIGITAL" | "SAAS",
           averageRating: agg._avg.rating ?? undefined,
         };
       })
     );
+    productsWithRating = mapped.filter((p) => p.category !== null) as typeof productsWithRating;
   } catch {
     // DB unavailable — show empty state
   }
@@ -74,7 +77,7 @@ export default async function CategoryPage({ params }: { params: { slug: string 
       <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
         <div className="mb-10">
           <h1 className="text-3xl font-heading font-bold text-white mb-2">{heading}</h1>
-          <p className="text-white/50">{products.length} products</p>
+          <p className="text-white/50">{productsWithRating.length} products</p>
         </div>
 
         {productsWithRating.length === 0 ? (
