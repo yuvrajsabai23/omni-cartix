@@ -69,7 +69,7 @@ export default function SignUpPage() {
           <Button
             type="button"
             variant="outline"
-            className="w-full border-white/20 text-white hover:bg-white/10 mb-5"
+            className="w-full bg-transparent border-white/20 text-white hover:bg-white/10 mb-5"
             onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
           >
             <svg className="h-4 w-4 mr-2" viewBox="0 0 24 24">

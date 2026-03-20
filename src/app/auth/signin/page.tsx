@@ -49,7 +49,7 @@ function SignInForm() {
       <Button
         type="button"
         variant="outline"
-        className="w-full border-white/20 text-white hover:bg-white/10 mb-5"
+        className="w-full bg-transparent border-white/20 text-white hover:bg-white/10 mb-5"
         onClick={handleGoogle}
         disabled={googleLoading}
       >
