@@ -57,13 +57,11 @@ export default function HeroSection() {
         {/* Heading */}
         <h1 className="text-display-xl font-heading font-bold text-white mb-6 reveal-section reveal-delay-2">
           Everything{" "}
-          <span className="gradient-text relative inline-block">
-            <span
-              key={currentWord}
-              className="animate-fade-in inline-block"
-            >
-              {words[currentWord]}
-            </span>
+          <span
+            key={currentWord}
+            className="gradient-text animate-fade-in inline-block"
+          >
+            {words[currentWord]}
           </span>
           <br />
           <span className="text-white/50">Everything Delivered.</span>
