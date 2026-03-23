@@ -42,7 +42,7 @@ export default function HeroSection() {
           <img
             src="/logo.png"
             alt="Omni Cartix"
-            className="h-20 sm:h-24 w-auto object-contain drop-shadow-2xl"
+            className="h-36 sm:h-44 w-auto object-contain drop-shadow-2xl"
           />
         </div>
 
@@ -57,7 +57,7 @@ export default function HeroSection() {
         {/* Heading */}
         <h1 className="text-display-xl font-heading font-bold text-white mb-6 reveal-section reveal-delay-2">
           Everything{" "}
-          <span className="gradient-text-shimmer relative inline-block">
+          <span className="gradient-text relative inline-block">
             <span
               key={currentWord}
               className="animate-fade-in inline-block"
