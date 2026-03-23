@@ -105,7 +105,7 @@ export default function HeroSection() {
             { label: "UK VAT Compliant" },
             { label: "Secure Stripe Payments" },
             { label: "14-Day Returns" },
-          ].map((item, i) => (
+          ].map((item) => (
             <div key={item.label} className="flex items-center gap-2 text-sm text-white/30">
               <div className="h-1 w-1 rounded-full bg-accent/60" />
               {item.label}
