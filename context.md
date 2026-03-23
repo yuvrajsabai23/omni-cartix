@@ -88,6 +88,29 @@ Password: Admin123! (hashed with bcrypt in seed)
 
 ---
 
+## Deployment
+
+### Production URL
+- **Live at:** `https://omnicartix.co.uk` (custom domain — fully connected ✅)
+- **Vercel URL:** `https://omni-cartix.vercel.app` (still works as alias)
+- GitHub repo: `https://github.com/yuvrajsabai23/omni-cartix.git` (branch: `master`)
+- Vercel auto-deploys on every push to `master`
+
+### Domain: omnicartix.co.uk
+- Purchased from **Hostinger**
+- DNS records configured in Hostinger:
+  - `A` record: `@` → `216.198.79.1` (TTL 3600)
+  - `CNAME` record: `www` → `eba46ff2accf88f0.vercel-dns-017.com.` (TTL 3600)
+- Both `omnicartix.co.uk` and `www.omnicartix.co.uk` added and verified in Vercel
+
+### Vercel Environment Variables (production)
+- `NEXTAUTH_URL` = `https://omnicartix.co.uk`
+- `NEXT_PUBLIC_APP_URL` = `https://omnicartix.co.uk`
+- `NEXTAUTH_SECRET` = (random secret, set in Vercel)
+- All other vars same as `.env.local`
+
+---
+
 ## Services Setup Status
 
 ### ✅ Supabase (Database)
@@ -96,24 +119,29 @@ Password: Admin123! (hashed with bcrypt in seed)
 - Connection strings in both `.env` and `.env.local`
 
 ### ✅ Stripe
-- Test mode keys saved in `.env.local`
-- Stripe CLI (`stripe.exe`) downloaded to project root
-- Local webhook forwarding: `.\stripe.exe listen --forward-to localhost:3001/api/webhooks/stripe`
-- Webhook secret (`whsec_...`) saved in `.env.local`
-- **For production:** create a new webhook endpoint in Stripe dashboard pointing to your Vercel URL, get a new `whsec_` secret
+- Test mode keys saved in `.env.local` and Vercel
+- Production webhook endpoint: `https://omni-cartix.vercel.app/api/webhooks/stripe`
+- Production webhook name: `captivating-serenity` (in Stripe Workbench → Webhooks)
+- `STRIPE_WEBHOOK_SECRET` updated in Vercel with production `whsec_` secret
+- **Do NOT run local Stripe CLI** when testing on production — it's not needed
+- Events: `checkout.session.completed`, `customer.subscription.created/updated/deleted`
 
 ### ✅ Resend (Email)
-- API key saved in `.env.local`
+- API key saved in `.env.local` and Vercel
 - From address: `orders@omnicartix.co.uk`
-- Domain `omnicartix.co.uk` must be verified in Resend dashboard before emails deliver
+- **Action needed:** Verify domain `omnicartix.co.uk` in Resend dashboard (add DNS TXT records in Hostinger) before emails deliver
 
 ### ✅ Google OAuth
 - Google Cloud project: "Omni Cartix"
 - OAuth client type: Web application
-- Client ID and Secret saved in `.env.local`
-- Redirect URI registered: `http://localhost:3001/api/auth/callback/google`
-- App is in **Testing** mode — only test users can sign in
-- **Action needed:** Add your Gmail to test users: Google Cloud Console → Audience → Test users
+- Authorized redirect URIs:
+  - `http://localhost:3001/api/auth/callback/google` (local)
+  - `https://omni-cartix.vercel.app/api/auth/callback/google` (production)
+- Authorized JavaScript origins:
+  - `http://localhost:3001`
+  - `https://omni-cartix.vercel.app`
+- App is in **Testing** mode — `yuvrajsabai23@gmail.com` added as test user
+- **Action needed:** Add `https://omnicartix.co.uk` as JavaScript origin and `https://omnicartix.co.uk/api/auth/callback/google` as redirect URI
 
 ### ⏭️ PayPal (Skipped)
 - Requires +1 US phone number for sandbox account verification
@@ -332,10 +360,21 @@ All vars from `.env.local` PLUS:
 
 ## What's Left To Do
 
-1. **Test locally** — sign in with Google, browse products, add to cart, checkout with test card
-2. **Add Google test user** — Google Cloud Console → Audience → Test users → add your Gmail
-3. **Deploy to Vercel** — `git push` → connect repo in Vercel → add env vars → deploy
-4. **Add PayPal** — when +1 phone available, create sandbox account
-5. **Add Cloudflare R2** — when card on file, create bucket for digital product files
-6. **Domain setup** — point `omnicartix.co.uk` to Vercel, verify domain in Resend
-7. **Stripe live keys** — replace test keys with live keys for production
+1. ✅ **Deploy to Vercel** — live at `https://omni-cartix.vercel.app`
+2. ✅ **Stripe production webhook** — configured and working
+3. ✅ **Google OAuth** — redirect URIs added for production
+4. ✅ **Domain setup** — `omnicartix.co.uk` purchased, DNS configured, connected to Vercel
+5. **Update Stripe webhook** — add new webhook for `https://omnicartix.co.uk/api/webhooks/stripe` and update `STRIPE_WEBHOOK_SECRET` in Vercel
+6. **Update Google OAuth** — add `https://omnicartix.co.uk/api/auth/callback/google` as redirect URI and `https://omnicartix.co.uk` as JavaScript origin
+7. **Verify domain in Resend** — add DNS TXT records in Hostinger to verify `omnicartix.co.uk` so emails deliver from `orders@omnicartix.co.uk`
+8. **Verify Stripe account** — complete business verification to accept real payments
+9. **Stripe live keys** — replace test keys (`sk_test_`, `pk_test_`) with live keys for real payments
+10. **Add PayPal** — when +1 phone available, create sandbox account
+11. **Add Cloudflare R2** — when card on file, create bucket for digital product files
+
+## Known Bugs Fixed
+- Unused `Image` import in Navbar caused Vercel build failure → removed
+- TypeScript errors in `categories/[slug]/page.tsx` (`products` out of scope, missing `thumbnailUrl`, wrong `type` type) → fixed
+- White Google button on signin/signup pages (shadcn `outline` variant has white bg) → fixed with `bg-transparent`
+- Cart Order Summary showing £0.00 → Zustand persist getter bug, fixed by computing totals inline from `items`
+- `NEXT_PUBLIC_APP_URL` was set to old preview URL `omni-cartix-i39a.vercel.app` → updated to `omni-cartix.vercel.app`
