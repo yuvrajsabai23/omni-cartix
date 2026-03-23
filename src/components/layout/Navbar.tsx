@@ -29,29 +29,29 @@ export default function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-dark/95 backdrop-blur supports-[backdrop-filter]:bg-dark/80">
-      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-50 w-full border-b border-white/[0.06] bg-dark/80 backdrop-blur-xl supports-[backdrop-filter]:bg-dark/60">
+      <nav className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-accent">
-            <span className="text-sm font-bold text-white">OC</span>
+        <Link href="/" className="flex items-center gap-2.5 group">
+          <div className="flex h-7 w-7 items-center justify-center rounded-md bg-gradient-primary">
+            <span className="text-xs font-bold text-white">OC</span>
           </div>
-          <span className="hidden sm:block text-xl font-heading font-bold gradient-text">
+          <span className="hidden sm:block text-base font-heading font-semibold text-white/90 tracking-tight">
             Omni Cartix
           </span>
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-1">
+        <div className="hidden md:flex items-center gap-0.5">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               className={cn(
-                "px-4 py-2 text-sm font-medium rounded-lg transition-colors",
+                "px-3.5 py-1.5 text-[13px] font-medium rounded-md transition-colors duration-150",
                 pathname === link.href || pathname.startsWith(link.href + "/")
-                  ? "text-white bg-primary/20"
-                  : "text-white/70 hover:text-white hover:bg-white/10"
+                  ? "text-white bg-white/[0.06]"
+                  : "text-white/50 hover:text-white/80 hover:bg-white/[0.03]"
               )}
             >
               {link.label}
@@ -60,15 +60,15 @@ export default function Navbar() {
         </div>
 
         {/* Right side */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
           {/* Search */}
           <Button
             variant="ghost"
             size="icon"
-            className="text-white/70 hover:text-white hover:bg-white/10"
+            className="h-8 w-8 text-white/40 hover:text-white/80 hover:bg-white/[0.04] transition-colors duration-150"
             onClick={() => setSearchOpen(!searchOpen)}
           >
-            <Search className="h-5 w-5" />
+            <Search className="h-4 w-4" />
           </Button>
 
           {/* Cart */}
@@ -76,11 +76,11 @@ export default function Navbar() {
             <Button
               variant="ghost"
               size="icon"
-              className="relative text-white/70 hover:text-white hover:bg-white/10"
+              className="relative h-8 w-8 text-white/40 hover:text-white/80 hover:bg-white/[0.04] transition-colors duration-150"
             >
-              <ShoppingCart className="h-5 w-5" />
+              <ShoppingCart className="h-4 w-4" />
               {itemCount > 0 && (
-                <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs bg-accent text-white border-0">
+                <Badge className="absolute -top-0.5 -right-0.5 h-4 w-4 flex items-center justify-center p-0 text-[10px] bg-accent text-dark border-0 font-semibold">
                   {itemCount > 99 ? "99+" : itemCount}
                 </Badge>
               )}
@@ -91,10 +91,10 @@ export default function Navbar() {
           {session ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-9 w-9 rounded-full">
-                  <Avatar className="h-9 w-9">
+                <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                  <Avatar className="h-7 w-7">
                     <AvatarImage src={session.user?.image ?? ""} alt={session.user?.name ?? ""} />
-                    <AvatarFallback className="bg-primary text-white text-xs">
+                    <AvatarFallback className="bg-primary/20 text-primary text-[10px] font-semibold">
                       {getInitials(session.user?.name || session.user?.email || "U")}
                     </AvatarFallback>
                   </Avatar>
@@ -146,14 +146,14 @@ export default function Navbar() {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <div className="hidden sm:flex items-center gap-2">
+            <div className="hidden sm:flex items-center gap-1.5 ml-1">
               <Link href="/auth/signin">
-                <Button variant="ghost" size="sm" className="text-white/70 hover:text-white hover:bg-white/10">
+                <Button variant="ghost" size="sm" className="h-8 text-[13px] text-white/50 hover:text-white/80 hover:bg-white/[0.04]">
                   Sign in
                 </Button>
               </Link>
               <Link href="/auth/signup">
-                <Button size="sm" className="bg-gradient-primary text-white hover:opacity-90">
+                <Button size="sm" className="h-8 text-[13px] bg-gradient-primary text-white hover:opacity-90 rounded-full px-4">
                   Get Started
                 </Button>
               </Link>
@@ -163,21 +163,21 @@ export default function Navbar() {
           {/* Mobile Menu */}
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden text-white/70 hover:text-white">
-                <Menu className="h-5 w-5" />
+              <Button variant="ghost" size="icon" className="md:hidden h-8 w-8 text-white/50 hover:text-white/80">
+                <Menu className="h-4 w-4" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-80 bg-dark border-white/10 text-white">
-              <div className="flex flex-col gap-1 pt-6">
+            <SheetContent side="right" className="w-72 bg-dark border-white/[0.06] text-white">
+              <div className="flex flex-col gap-0.5 pt-6">
                 <Link
                   href="/"
-                  className="mb-4 flex items-center gap-2"
+                  className="mb-6 flex items-center gap-2"
                   onClick={() => setMobileOpen(false)}
                 >
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-accent">
-                    <span className="text-sm font-bold text-white">OC</span>
+                  <div className="flex h-7 w-7 items-center justify-center rounded-md bg-gradient-primary">
+                    <span className="text-xs font-bold text-white">OC</span>
                   </div>
-                  <span className="text-xl font-heading font-bold gradient-text">Omni Cartix</span>
+                  <span className="text-base font-heading font-semibold text-white/90">Omni Cartix</span>
                 </Link>
                 {navLinks.map((link) => (
                   <Link
@@ -185,26 +185,26 @@ export default function Navbar() {
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
                     className={cn(
-                      "px-4 py-3 text-sm font-medium rounded-lg transition-colors",
+                      "px-3 py-2.5 text-[13px] font-medium rounded-md transition-colors duration-150",
                       pathname === link.href
-                        ? "text-white bg-primary/20"
-                        : "text-white/70 hover:text-white hover:bg-white/10"
+                        ? "text-white bg-white/[0.06]"
+                        : "text-white/50 hover:text-white/80 hover:bg-white/[0.03]"
                     )}
                   >
                     {link.label}
                   </Link>
                 ))}
-                <div className="border-t border-white/10 mt-4 pt-4 flex flex-col gap-2">
+                <div className="border-t border-white/[0.06] mt-4 pt-4 flex flex-col gap-2">
                   {session ? (
                     <>
                       <Link href="/dashboard" onClick={() => setMobileOpen(false)}>
-                        <Button variant="outline" className="w-full border-white/20 text-white hover:bg-white/10">
+                        <Button variant="outline" className="w-full border-white/[0.08] text-white/70 hover:bg-white/[0.04]">
                           Dashboard
                         </Button>
                       </Link>
                       <Button
                         variant="ghost"
-                        className="w-full text-white/70 hover:text-white"
+                        className="w-full text-white/50 hover:text-white/80"
                         onClick={() => { signOut({ callbackUrl: "/" }); setMobileOpen(false); }}
                       >
                         Sign out
@@ -213,12 +213,12 @@ export default function Navbar() {
                   ) : (
                     <>
                       <Link href="/auth/signin" onClick={() => setMobileOpen(false)}>
-                        <Button variant="outline" className="w-full border-white/20 text-white hover:bg-white/10">
+                        <Button variant="outline" className="w-full border-white/[0.08] text-white/70 hover:bg-white/[0.04]">
                           Sign in
                         </Button>
                       </Link>
                       <Link href="/auth/signup" onClick={() => setMobileOpen(false)}>
-                        <Button className="w-full bg-gradient-primary text-white hover:opacity-90">
+                        <Button className="w-full bg-gradient-primary text-white hover:opacity-90 rounded-full">
                           Get Started
                         </Button>
                       </Link>

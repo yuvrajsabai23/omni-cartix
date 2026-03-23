@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
-import { DM_Sans, Inter } from "next/font/google";
+import { Space_Grotesk, Outfit } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/shared/Providers";
 import { siteConfig } from "@/config/site";
 
-const inter = Inter({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-space-grotesk",
   display: "swap",
 });
 
-const dmSans = DM_Sans({
+const outfit = Outfit({
   subsets: ["latin"],
-  variable: "--font-dm-sans",
+  variable: "--font-outfit",
   display: "swap",
 });
 
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en-GB" suppressHydrationWarning>
-      <body className={`${inter.variable} ${dmSans.variable} antialiased min-h-screen`}>
+      <body className={`${spaceGrotesk.variable} ${outfit.variable} antialiased min-h-screen`}>
         <Providers>{children}</Providers>
       </body>
     </html>

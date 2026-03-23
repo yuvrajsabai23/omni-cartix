@@ -40,7 +40,6 @@ export default function SignUpPage() {
         toast.error(data.error || "Registration failed.");
         return;
       }
-      // Auto sign in
       await signIn("credentials", { email, password, redirect: false });
       toast.success("Account created! Welcome to Omni Cartix.");
       router.push("/dashboard");
@@ -53,23 +52,28 @@ export default function SignUpPage() {
 
   return (
     <div className="min-h-screen bg-dark flex items-center justify-center px-4 py-12">
-      <div className="w-full max-w-md">
+      {/* Background glow */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute top-1/3 right-1/3 h-[300px] w-[300px] rounded-full bg-accent/[0.02] blur-[100px]" />
+      </div>
+
+      <div className="w-full max-w-sm relative z-10">
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-primary">
-              <span className="text-base font-bold text-white">OC</span>
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-primary">
+              <span className="text-sm font-bold text-white">OC</span>
             </div>
-            <span className="text-2xl font-heading font-bold gradient-text">Omni Cartix</span>
+            <span className="text-xl font-heading font-semibold gradient-text">Omni Cartix</span>
           </Link>
-          <h1 className="text-2xl font-bold text-white mt-6 mb-1">Create your account</h1>
-          <p className="text-white/50 text-sm">Join 50,000+ UK customers</p>
+          <h1 className="text-xl font-heading font-semibold text-white mt-8 mb-1">Create your account</h1>
+          <p className="text-white/30 text-sm">Start shopping in the UK marketplace</p>
         </div>
 
-        <div className="bg-white/5 border border-white/10 rounded-2xl p-8">
+        <div className="bg-white/[0.02] border border-white/[0.06] rounded-xl p-8">
           <Button
             type="button"
             variant="outline"
-            className="w-full bg-transparent border-white/20 text-white hover:bg-white/10 mb-5"
+            className="w-full border-white/[0.08] text-white/70 hover:bg-white/[0.04] mb-5"
             onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
           >
             <svg className="h-4 w-4 mr-2" viewBox="0 0 24 24">
@@ -82,25 +86,25 @@ export default function SignUpPage() {
           </Button>
 
           <div className="flex items-center gap-3 mb-5">
-            <Separator className="flex-1 bg-white/10" />
-            <span className="text-xs text-white/40">or</span>
-            <Separator className="flex-1 bg-white/10" />
+            <Separator className="flex-1 bg-white/[0.06]" />
+            <span className="text-[11px] text-white/25 uppercase tracking-wider">or</span>
+            <Separator className="flex-1 bg-white/[0.06]" />
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <Label htmlFor="name" className="text-white/70 text-sm">Full Name</Label>
-              <Input id="name" value={name} onChange={(e) => setName(e.target.value)} required placeholder="Jane Smith" className="mt-1 bg-white/10 border-white/20 text-white placeholder:text-white/30" />
+              <Label htmlFor="name" className="text-white/50 text-[13px]">Full Name</Label>
+              <Input id="name" value={name} onChange={(e) => setName(e.target.value)} required placeholder="Jane Smith" className="mt-1.5 bg-white/[0.03] border-white/[0.08] text-white placeholder:text-white/20 focus:border-accent/30 h-10" />
             </div>
             <div>
-              <Label htmlFor="email" className="text-white/70 text-sm">Email</Label>
-              <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="you@example.com" className="mt-1 bg-white/10 border-white/20 text-white placeholder:text-white/30" />
+              <Label htmlFor="email" className="text-white/50 text-[13px]">Email</Label>
+              <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="you@example.com" className="mt-1.5 bg-white/[0.03] border-white/[0.08] text-white placeholder:text-white/20 focus:border-accent/30 h-10" />
             </div>
             <div>
-              <Label htmlFor="password" className="text-white/70 text-sm">Password</Label>
-              <div className="relative mt-1">
-                <Input id="password" type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="Min. 8 characters" minLength={8} className="bg-white/10 border-white/20 text-white placeholder:text-white/30 pr-10" />
-                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white">
+              <Label htmlFor="password" className="text-white/50 text-[13px]">Password</Label>
+              <div className="relative mt-1.5">
+                <Input id="password" type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="Min. 8 characters" minLength={8} className="bg-white/[0.03] border-white/[0.08] text-white placeholder:text-white/20 focus:border-accent/30 pr-10 h-10" />
+                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-white/25 hover:text-white/60 transition-colors duration-200">
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
               </div>
@@ -108,32 +112,32 @@ export default function SignUpPage() {
 
             <div className="space-y-3 pt-1">
               <div className="flex items-start gap-2">
-                <Checkbox id="gdpr" checked={gdpr} onCheckedChange={(v) => setGdpr(!!v)} className="mt-0.5 border-white/20" />
-                <Label htmlFor="gdpr" className="text-xs text-white/60 cursor-pointer leading-relaxed">
+                <Checkbox id="gdpr" checked={gdpr} onCheckedChange={(v) => setGdpr(!!v)} className="mt-0.5 border-white/[0.12]" />
+                <Label htmlFor="gdpr" className="text-[11px] text-white/40 cursor-pointer leading-relaxed">
                   I agree to the{" "}
-                  <Link href="/privacy" className="text-primary hover:underline">Privacy Policy</Link>
+                  <Link href="/privacy" className="text-white/60 hover:text-white/80 underline underline-offset-2">Privacy Policy</Link>
                   {" "}and{" "}
-                  <Link href="/terms" className="text-primary hover:underline">Terms & Conditions</Link>
+                  <Link href="/terms" className="text-white/60 hover:text-white/80 underline underline-offset-2">Terms & Conditions</Link>
                   {" "}(required)
                 </Label>
               </div>
               <div className="flex items-start gap-2">
-                <Checkbox id="marketing" checked={marketing} onCheckedChange={(v) => setMarketing(!!v)} className="mt-0.5 border-white/20" />
-                <Label htmlFor="marketing" className="text-xs text-white/60 cursor-pointer">
+                <Checkbox id="marketing" checked={marketing} onCheckedChange={(v) => setMarketing(!!v)} className="mt-0.5 border-white/[0.12]" />
+                <Label htmlFor="marketing" className="text-[11px] text-white/40 cursor-pointer">
                   Send me exclusive deals and product news (optional)
                 </Label>
               </div>
             </div>
 
-            <Button type="submit" className="w-full bg-gradient-primary text-white hover:opacity-90 py-5 font-semibold" disabled={loading}>
+            <Button type="submit" className="w-full bg-gradient-primary text-white hover:opacity-90 h-11 font-medium rounded-full" disabled={loading}>
               {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
               Create Account
             </Button>
           </form>
 
-          <p className="text-center text-sm text-white/50 mt-5">
+          <p className="text-center text-sm text-white/30 mt-6">
             Already have an account?{" "}
-            <Link href="/auth/signin" className="text-primary hover:text-primary/80 font-medium">Sign in</Link>
+            <Link href="/auth/signin" className="text-white/60 hover:text-white transition-colors duration-200 font-medium">Sign in</Link>
           </p>
         </div>
       </div>

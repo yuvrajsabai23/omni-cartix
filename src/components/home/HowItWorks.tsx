@@ -6,16 +6,18 @@ const steps = [
     step: "01",
     title: "Browse & Discover",
     description:
-      "Explore thousands of physical products, digital downloads, and SaaS tools. Filter by category, price, and type.",
-    color: "text-primary bg-primary/20",
+      "Explore physical products, digital downloads, and SaaS tools. Filter by category, price, and type.",
+    color: "text-primary-light",
+    bg: "bg-primary/10",
   },
   {
     icon: ShoppingCart,
     step: "02",
     title: "Buy Securely",
     description:
-      "Pay with Stripe or PayPal in GBP. All transactions are encrypted and VAT-inclusive with instant invoice generation.",
-    color: "text-accent bg-accent/20",
+      "Pay with Stripe in GBP. All transactions are encrypted and VAT-inclusive with instant invoice generation.",
+    color: "text-accent",
+    bg: "bg-accent/10",
   },
   {
     icon: Download,
@@ -23,41 +25,42 @@ const steps = [
     title: "Download or Receive",
     description:
       "Digital products delivered instantly via secure download link. Physical goods shipped to your UK address.",
-    color: "text-success bg-success/20",
+    color: "text-emerald-400",
+    bg: "bg-emerald-500/10",
   },
 ];
 
 export default function HowItWorks() {
   return (
-    <section className="bg-[#080e1a] py-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white mb-4">
+    <section className="bg-dark-surface py-24">
+      <div className="mx-auto max-w-7xl px-6 sm:px-8">
+        <div className="max-w-lg mb-14">
+          <h2 className="text-display font-heading font-bold text-white mb-3">
             How It <span className="gradient-text">Works</span>
           </h2>
-          <p className="text-white/60 max-w-xl mx-auto">
+          <p className="text-white/35 text-sm leading-relaxed">
             Get started in minutes. No setup fees, no subscriptions required to browse.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 relative">
           {/* Connector line */}
-          <div className="hidden md:block absolute top-16 left-1/3 right-1/3 h-px bg-gradient-primary opacity-30" />
+          <div className="hidden md:block absolute top-14 left-[20%] right-[20%] h-px bg-gradient-to-r from-primary/20 via-accent/20 to-emerald-500/20" />
 
-          {steps.map(({ icon: Icon, step, title, description, color }) => (
-            <div key={step} className="relative flex flex-col items-center text-center group">
-              {/* Step number */}
-              <div className="text-6xl font-bold text-white/5 absolute -top-4 font-heading select-none">
+          {steps.map(({ icon: Icon, step, title, description, color, bg }) => (
+            <div key={step} className="relative p-7 rounded-xl border border-white/[0.04] bg-white/[0.01] group hover:border-white/[0.08] transition-all duration-300">
+              {/* Step number — large background watermark */}
+              <div className="absolute top-4 right-5 text-5xl font-heading font-bold text-white/[0.03] select-none">
                 {step}
               </div>
 
               {/* Icon */}
-              <div className={`relative z-10 flex h-16 w-16 items-center justify-center rounded-2xl ${color} mb-6 group-hover:scale-110 transition-transform`}>
-                <Icon className="h-8 w-8" />
+              <div className={`relative z-10 flex h-12 w-12 items-center justify-center rounded-lg ${bg} mb-5 group-hover:scale-105 transition-transform duration-300 ease-out-expo`}>
+                <Icon className={`h-5 w-5 ${color}`} />
               </div>
 
-              <h3 className="text-lg font-bold text-white mb-3">{title}</h3>
-              <p className="text-white/60 text-sm leading-relaxed">{description}</p>
+              <h3 className="text-base font-heading font-semibold text-white mb-2">{title}</h3>
+              <p className="text-white/35 text-sm leading-relaxed">{description}</p>
             </div>
           ))}
         </div>

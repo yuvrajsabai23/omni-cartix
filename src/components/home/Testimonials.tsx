@@ -1,5 +1,4 @@
 import { Star } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
 
 const testimonials = [
   {
@@ -36,54 +35,54 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="bg-dark py-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white mb-4">
+    <section className="bg-dark py-24">
+      <div className="mx-auto max-w-7xl px-6 sm:px-8">
+        <div className="max-w-lg mb-14">
+          <h2 className="text-display font-heading font-bold text-white mb-3">
             Trusted by{" "}
             <span className="gradient-text">UK Customers</span>
           </h2>
-          <p className="text-white/60 max-w-xl mx-auto">
-            Join over 50,000 satisfied customers who shop with Omni Cartix every month.
+          <p className="text-white/35 text-sm leading-relaxed">
+            Real feedback from real customers who shop with Omni Cartix.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {testimonials.map((t) => (
-            <Card
+            <div
               key={t.name}
-              className="bg-white/5 border-white/10 hover:border-primary/30 transition-all duration-300 hover:-translate-y-1"
+              className="p-7 rounded-xl border border-white/[0.04] bg-white/[0.01] hover:border-white/[0.08] transition-all duration-300 ease-out-expo hover:-translate-y-0.5"
             >
-              <CardContent className="p-6">
-                {/* Stars */}
-                <div className="flex gap-1 mb-4">
-                  {Array.from({ length: t.rating }).map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                  ))}
+              {/* Stars */}
+              <div className="flex gap-0.5 mb-5">
+                {Array.from({ length: t.rating }).map((_, i) => (
+                  <Star key={i} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
+                ))}
+              </div>
+
+              {/* Review */}
+              <p className="text-white/50 text-sm leading-relaxed mb-6">
+                &ldquo;{t.review}&rdquo;
+              </p>
+
+              {/* Product */}
+              <div className="text-[11px] text-accent/70 mb-5 font-medium tracking-wide uppercase">
+                {t.product}
+              </div>
+
+              {/* Author */}
+              <div className="flex items-center gap-3 pt-5 border-t border-white/[0.04]">
+                <div className="h-8 w-8 rounded-full bg-primary/15 flex items-center justify-center text-primary text-[11px] font-semibold">
+                  {t.avatar}
                 </div>
-
-                {/* Review */}
-                <p className="text-white/70 text-sm leading-relaxed mb-6 italic">
-                  &ldquo;{t.review}&rdquo;
-                </p>
-
-                {/* Product */}
-                <div className="text-xs text-accent mb-4">📦 {t.product}</div>
-
-                {/* Author */}
-                <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-full bg-gradient-primary flex items-center justify-center text-white text-sm font-bold">
-                    {t.avatar}
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-white">{t.name}</p>
-                    <p className="text-xs text-white/50">
-                      {t.role} · {t.location}
-                    </p>
-                  </div>
+                <div>
+                  <p className="text-sm font-medium text-white/80">{t.name}</p>
+                  <p className="text-[11px] text-white/30">
+                    {t.role} · {t.location}
+                  </p>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ))}
         </div>
       </div>
