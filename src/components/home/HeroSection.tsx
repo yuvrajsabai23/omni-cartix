@@ -59,7 +59,7 @@ export default function HeroSection() {
           Everything{" "}
           <span
             key={currentWord}
-            className="gradient-text animate-fade-in inline-block"
+            className="bg-clip-text text-transparent bg-gradient-to-r from-[#818CF8] to-[#00D4FF] animate-fade-in inline-block"
           >
             {words[currentWord]}
           </span>
