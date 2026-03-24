@@ -14,7 +14,7 @@ export const siteConfig = {
       postcode: "EC1A 1BB",
       country: "United Kingdom",
     },
-    email: "hello@omnicartix.co.uk",
+    email: "business@omnicartix.co.uk",
     phone: "+44 20 1234 5678",
     icoNumber: "ZA123456",
   },
